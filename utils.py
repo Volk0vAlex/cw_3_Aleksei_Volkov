@@ -1,16 +1,12 @@
-import requests, datetime
+import datetime
+import json
 
-def get_data_base(URL):
-    try:
-        transactions = requests.request("GET", URL, verify=False)
-        if transactions.status_code == 200:
-            return transactions.json(),"INFO: данные получены успешно\n"
-        return None, f"ERROR:status code {transactions.status_code}\n"
+PATH = "operations.json"
 
-    except requests.exceptions.ConnectionError:
-        return None, "ERROR: requests.exceptions.ConnectionERROR\n"
-    except requests.exceptions.JSONDecodeError:
-        return None, "ERROR: requests.exceptions.JSONDecodeError\n"
+
+def get_data_base():
+    with open(PATH, "r", encoding="utf8") as data:
+        return json.load(data)
 
 
 def get_filtered_data(data, ignore_incomplete_transactions=False):
@@ -42,7 +38,6 @@ def get_formatted_data(data):
             from_info = " ".join(sender)
         to = f"{transaction['to'].split()[0]} **{transaction['to'][-4:]}"
         operation_amount = f"{transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}"
-
         formatted_data.append(f"""\
 {date} {description}
 {from_info} {from_bill} -> {to}
