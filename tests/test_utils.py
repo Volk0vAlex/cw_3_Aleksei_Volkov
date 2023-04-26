@@ -1,17 +1,20 @@
 import pytest
-
+import unittest
 from utils import get_data_base, get_filtered_data, get_last_values, get_formatted_data
 
+#PATH = "operations.json"
 
-def test_get_data_base(test_url):
+def test_get_data_base(test_path):
+    assert type(get_data_base()) is list
+
     # проверка на получение данных
-    assert len(get_data_base(test_url)[0]) > 0
+    #assert len(get_data_base(test_url)[0]) > 0
     # проверка на подключение к несуществующему сайту
-    assert get_data_base("https://wrong.url.com/")[0] is None
+    #assert get_data_base("https://wrong.url.com/")[0] is None
     # проверка на подключение к существующему сайту, но не получение JSON-реализуемого объекта
-    assert get_data_base("https://github.com/timofey-davidov/-timofey-davidov-homework_12-2_project-3.git")[0] is None
+    #assert get_data_base("https://github.com/timofey-davidov/-timofey-davidov-homework_12-2_project-3.git")[0] is None
     # проверка на ошибку доступа (4** - ошибка клиента, 5** - ошибка на стороне сервера)
-    assert get_data_base("https://github.com/timofey-davidov/-timofey-davidov-homework_12-2_project-9.git")[0] is None
+    #assert get_data_base("https://github.com/timofey-davidov/-timofey-davidov-homework_12-2_project-9.git")[0] is None
 
 
 def test_get_filtered_data(test_data):

@@ -2,8 +2,8 @@ import pytest
 
 
 @pytest.fixture
-def test_url():
-    return "https://jsonkeeper.com/b/46IM"
+def test_path():
+    return "operations.json"
 
 
 @pytest.fixture
